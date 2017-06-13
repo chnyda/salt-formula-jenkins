@@ -52,8 +52,13 @@
               <branches>
                 {%- for branch in project.branches %}
                 <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
-                  <compareType>PLAIN</compareType>
-                  <pattern>{{ branch }}</pattern>
+                  {%- if branch is mapping %}
+                    <compareType>{{ branch.compare_type }}</compareType>
+                    <pattern>{{ branch.name }}</pattern>
+                  {%- else %}
+                    <compareType>PLAIN</compareType>
+                    <pattern>{{ branch }}</pattern>
+                  {%- endif %}
                 </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
                 {%- endfor %}
               </branches>
